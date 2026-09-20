@@ -1084,7 +1084,7 @@ blog/
             Home
         </a>
 
-        <a href="{% url 'post-list' %}">
+        {% url 'post_detail' post.slug %}
             Blog
         </a>
     </nav>
@@ -1127,7 +1127,7 @@ blog/
 <article>
 
     <h2>
-        <a href="{% url 'post-detail' post.slug %}">
+        <a href="{% url 'post_detail' post.slug %}">
             {{ post.title }}
         </a>
     </h2>
@@ -1372,7 +1372,7 @@ def post_create(request):
         if form.is_valid():
             form.save()
 
-            return redirect("post-list")
+            return redirect("post_list")
 
     else:
         form = PostForm()
