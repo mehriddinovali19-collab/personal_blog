@@ -1,14 +1,33 @@
 from django.shortcuts import (render, get_object_or_404, redirect)
 from .models import Post, Category
 from .forms import PostForm, CommentForm
+from django.core.paginator import Paginator
+
 
 def home(request):
-    posts = Post.objects.filter(published=True).order_by('-created_at')
-    return render(request, 'blog/home.html', {'posts': posts})
+    posts = Post.objects.filter(
+        published=True
+    ).order_by('-created_at')
+
+    categories = Category.objects.all()
+
+    return render(
+        request,
+        'blog/home.html',
+        {
+            'posts': posts,
+            'categories': categories,
+        }
+    )
+
+
 
 def post_list(request):
     posts = Post.objects.filter(published=True).order_by('-created_at')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    paginator = Paginator(posts, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render( request, 'blog/post_list.html', { 'page_obj': page_obj, 'posts': page_obj, } )
 
 def post_detail(request, slug):
     post = get_object_or_404(
@@ -94,3 +113,13 @@ def category_posts(request, slug):
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'blog/category_list.html', {'categories': categories})
+
+def search_posts(request):
+    query = request.GET.get('q')
+    posts = Post.objects.filter(
+        title__icontains=query,
+        published=True
+    ).order_by('-created_at') if query else []
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+
+

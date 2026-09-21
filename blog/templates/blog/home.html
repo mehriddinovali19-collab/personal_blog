@@ -1,35 +1,23 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-    Home
+My Blog
 {% endblock %}
 
 {% block content %}
 
-<h1>Welcome to my Personal Blog</h1>
+<h1>Welcome to My Blog</h1>
 
-{% for post in posts %}
+<p>
+    Bu mening shaxsiy blogim.
+    Bu yerda men o‘zimning fikrlarim, tajribalarim,
+    sayohatlarim va o‘rgangan narsalarim haqida yozaman.
+</p>
 
-<article>
-    <h2>
-        <a href="{% url 'post_detail' post.slug %}">
-            {{ post.title }}
-        </a>
-    </h2>
+<br>
 
-    <p>
-        {{ post.content|truncatewords:30 }}
-    </p>
-
-    <p>
-        {{ post.created_at }}
-    </p>
-</article>
-
-{% empty %}
-
-<p>No posts yet.</p>
-
-{% endfor %}
+<a href="{% url 'post_list' %}">
+    Read My Posts →
+</a>
 
 {% endblock %}

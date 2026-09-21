@@ -1,37 +1,41 @@
 {% extends "blog/base.html" %}
 
+{% block title %}
+{{ category.name }}
+{% endblock %}
+
 {% block content %}
 
 <h1>{{ category.name }}</h1>
 
-{% if posts %}
+{% for post in posts %}
 
-    {% for post in posts %}
+<div class="post-card">
 
-        <article>
-            <h2>
-                <a href="{% url 'post_detail' post.slug %}">
-                    {{ post.title }}
-                </a>
-            </h2>
+```
+<h2>
+    <a href="{% url 'post_detail' post.slug %}">
+        {{ post.title }}
+    </a>
+</h2>
 
-            <p>
-                {{ post.content|truncatewords:30 }}
-            </p>
+<p>
+    {{ post.content|truncatewords:30 }}
+</p>
+```
 
-            <small>
-                {{ post.created_at }}
-            </small>
-        </article>
+</div>
 
-        <hr>
+{% empty %}
 
-    {% endfor %}
+<p>Bu kategoriyada hozircha postlar mavjud emas.</p>
 
-{% else %}
+{% endfor %}
 
-    <p>Bu categoryda hozircha postlar yo‘q.</p>
+<br>
 
-{% endif %}
+<a href="{% url 'category_list' %}">
+    ← Back to Categories
+</a>
 
 {% endblock %}

@@ -1,17 +1,22 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-    Add Comment
+Add Comment
 {% endblock %}
 
 {% block content %}
 
+<div class="post-card">
+
+```
 <h1>Add Comment</h1>
 
 <p>
     Commenting on:
     <strong>{{ post.title }}</strong>
 </p>
+
+<br>
 
 <form method="POST">
 
@@ -25,10 +30,15 @@
 
 </form>
 
+<br>
+
 <p>
     <a href="{% url 'post_detail' post.slug %}">
         ← Back to Post
     </a>
 </p>
+```
+
+</div>
 
 {% endblock %}

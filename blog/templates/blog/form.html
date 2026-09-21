@@ -1,11 +1,14 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-    Create Post
+Create Post
 {% endblock %}
 
 {% block content %}
 
+<div class="post-card">
+
+```
 <h1>Create New Post</h1>
 
 <form method="POST" enctype="multipart/form-data">
@@ -19,5 +22,14 @@
     </button>
 
 </form>
+
+<br>
+
+<a href="{% url 'post_list' %}">
+    ← Back to Blog
+</a>
+```
+
+</div>
 
 {% endblock %}

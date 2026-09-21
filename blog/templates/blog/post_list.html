@@ -1,39 +1,35 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Posts</title>
-</head>
-<body>
+{% extends "blog/base.html" %}
 
-    <h1>All Posts</h1>
+{% block title %}
+Blog
+{% endblock %}
 
-    {% for post in posts %}
+{% block content %}
 
-        <article>
-            <h2>{{ post.title }}</h2>
+<h1>Blog Posts</h1>
 
-            <p>{{ post.content|truncatewords:30 }}</p>
+{% for post in posts %}
 
-            <p>
-                Published: {{ post.created_at }}
-            </p>
+<div class="post-card">
 
-            <a href="{% url 'post_detail' post.id %}">
-                Read more
-            </a>
-        </article>
-
-        <hr>
-
-    {% empty %}
-
-        <p>No posts available.</p>
-
-    {% endfor %}
-
-</body>
-</html>
 ```
+<h2>
+    <a href="{% url 'post_detail' post.slug %}">
+        {{ post.title }}
+    </a>
+</h2>
+
+<p>
+    {{ post.content|truncatewords:30 }}
+</p>
+```
+
+</div>
+
+{% empty %}
+
+<p>Hozircha postlar mavjud emas.</p>
+
+{% endfor %}
+
+{% endblock %}

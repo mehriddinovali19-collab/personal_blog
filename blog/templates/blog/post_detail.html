@@ -1,62 +1,44 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-    {{ post.title }}
+{{ post.title }}
 {% endblock %}
 
 {% block content %}
 
-<article>
+<div class="post-card">
 
-    <h1>{{ post.title }}</h1>
+```
+<h1>{{ post.title }}</h1>
 
-    <p>
-        {{ post.created_at }}
-    </p>
+<p>
+    {{ post.content }}
+</p>
 
-    {% if post.image %}
-        <img
-            src="{{ post.image.url }}"
-            alt="{{ post.title }}"
-        >
-    {% endif %}
+<br>
 
-    <div>
-        {{ post.content|linebreaks }}
-    </div>
+<p>
+    <strong>Author:</strong> {{ post.author.username }}
+</p>
 
-</article>
+<p>
+    <strong>Category:</strong>
+    <a href="{% url 'category_posts' post.category.slug %}">
+        {{ post.category.name }}
+    </a>
+</p>
 
-<hr>
+<p>
+    <strong>Created:</strong> {{ post.created_at }}
+</p>
+```
 
-<h2>Comments</h2>
+</div>
 
-{% for comment in post.comments.all %}
+<br>
 
-    <div>
-        <strong>
-            {{ comment.user.username }}
-        </strong>
-
-        <p>
-            {{ comment.content }}
-        </p>
-
-        <small>
-            {{ comment.created_at }}
-        </small>
-    </div>
-
-    <hr>
-
-{% empty %}
-
-    <p>No comments yet.</p>
-
-{% endfor %}
-
-<a href="{% url 'add_comment' post.id %}">
-    Add Comment
+<a href="{% url 'post_list' %}">
+    ← Back to Blog
 </a>
 
 {% endblock %}
