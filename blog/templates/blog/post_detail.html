@@ -1,11 +1,8 @@
-```html
 {% extends "blog/base.html" %}
-
 
 {% block title %}
     {{ post.title }}
 {% endblock %}
-
 
 {% block content %}
 
@@ -30,5 +27,36 @@
 
 </article>
 
+<hr>
+
+<h2>Comments</h2>
+
+{% for comment in post.comments.all %}
+
+    <div>
+        <strong>
+            {{ comment.user.username }}
+        </strong>
+
+        <p>
+            {{ comment.content }}
+        </p>
+
+        <small>
+            {{ comment.created_at }}
+        </small>
+    </div>
+
+    <hr>
+
+{% empty %}
+
+    <p>No comments yet.</p>
+
+{% endfor %}
+
+<a href="{% url 'add_comment' post.id %}">
+    Add Comment
+</a>
+
 {% endblock %}
-```

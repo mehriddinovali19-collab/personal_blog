@@ -1,6 +1,6 @@
 from django.shortcuts import (render, get_object_or_404, redirect)
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 
 def home(request):
     posts = Post.objects.filter(published=True).order_by('-created_at')
@@ -51,3 +51,24 @@ def post_update(request, id):
         "blog/form.html",
         {"form": form}
     )
+
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    if request.method == "POST":
+        post.delete()
+        return redirect("post_list")
+    return render(request, "blog/post_confirm_delete.html", {"post": post})
+
+
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect("post_detail", slug=post.slug)
+    else:
+        form = CommentForm()
+    return render(request, "blog/add_comment.html", {"form": form, "post": post})

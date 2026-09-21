@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Registration Successful
+{% endblock %}
+
+{% block content %}
+
+<h1>Registration Successful!</h1>
+
+<p>Your account has been created successfully.</p>
+
+<a href="{% url 'register' %}">
+    Register another account
+</a>
+
+{% endblock %}
