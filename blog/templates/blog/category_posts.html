@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<h1>{{ category.name }}</h1>
+
+{% if posts %}
+
+    {% for post in posts %}
+
+        <article>
+            <h2>
+                <a href="{% url 'post_detail' post.slug %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+
+            <p>
+                {{ post.content|truncatewords:30 }}
+            </p>
+
+            <small>
+                {{ post.created_at }}
+            </small>
+        </article>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>Bu categoryda hozircha postlar yo‘q.</p>
+
+{% endif %}
+
+{% endblock %}

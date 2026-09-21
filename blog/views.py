@@ -1,5 +1,5 @@
 from django.shortcuts import (render, get_object_or_404, redirect)
-from .models import Post
+from .models import Post, Category
 from .forms import PostForm, CommentForm
 
 def home(request):
@@ -72,3 +72,25 @@ def add_comment(request, post_id):
     else:
         form = CommentForm()
     return render(request, "blog/add_comment.html", {"form": form, "post": post})
+
+
+def category_posts(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+
+    posts = Post.objects.filter(
+        category=category,
+        published=True
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'blog/category_posts.html',
+        {
+            'category': category,
+            'posts': posts,
+        }
+    )
+
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'blog/category_list.html', {'categories': categories})

@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<h1>Categories</h1>
+
+{% if categories %}
+
+    {% for category in categories %}
+
+        <div>
+            <h2>
+                <a href="{% url 'category_posts' category.slug %}">
+                    {{ category.name }}
+                </a>
+            </h2>
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>Hozircha category mavjud emas.</p>
+
+{% endif %}
+
+{% endblock %}
