@@ -2,6 +2,7 @@ from django.shortcuts import (render, get_object_or_404, redirect)
 from .models import Post, Category
 from .forms import PostForm, CommentForm
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -37,15 +38,33 @@ def post_detail(request, slug):
     )
     return render(request, 'blog/post_detail.html', {'post': post})
 
+@login_required
+
 def post_create(request):
-    if request.method == "POST":
+
+    if request.method == 'POST':
+
         form = PostForm(request.POST, request.FILES)
+
         if form.is_valid():
-            form.save()
-            return redirect('post_list')
+
+            post = form.save(commit=False)
+
+            post.author = request.user
+
+            post.save()
+
+            return redirect('post_detail', slug=post.slug)
+
     else:
+
         form = PostForm()
-    return render(request, 'blog/post_form.html', {'form': form})
+
+    return render(
+        request,
+        'blog/form.html',
+        {'form': form}
+    )
 
 
 def post_update(request, id):

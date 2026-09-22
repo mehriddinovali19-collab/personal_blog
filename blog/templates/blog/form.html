@@ -1,34 +1,36 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-Create Post
+    Create Post
 {% endblock %}
 
 {% block content %}
 
 <div class="post-card">
 
-```
-<h1>Create New Post</h1>
+    <div class="post-content">
 
-<form method="POST" enctype="multipart/form-data">
+        <h1>Create New Post</h1>
 
-    {% csrf_token %}
+        <form method="POST" enctype="multipart/form-data">
 
-    {{ form.as_p }}
+            {% csrf_token %}
 
-    <button type="submit">
-        Create Post
-    </button>
+            {{ form.as_p }}
 
-</form>
+            <button type="submit">
+                Create Post
+            </button>
 
-<br>
+        </form>
 
-<a href="{% url 'post_list' %}">
-    ← Back to Blog
-</a>
-```
+        <br>
+
+        <a href="{% url 'post_list' %}">
+            ← Back to Blog
+        </a>
+
+    </div>
 
 </div>
 

@@ -6,12 +6,31 @@
 
 {% block content %}
 
-<h1>Registration Successful!</h1>
+<div class="auth-container">
 
-<p>Your account has been created successfully.</p>
+    <div class="auth-card">
 
-<a href="{% url 'register' %}">
-    Register another account
-</a>
+        <h1>Registration Successful!</h1>
+
+        <p class="auth-description">
+            Your account has been created successfully.
+        </p>
+
+        <p>
+            You can now login to your account and start using the blog.
+        </p>
+
+        <br>
+
+        <a
+            href="{% url 'login' %}"
+            class="primary-button"
+        >
+            Login
+        </a>
+
+    </div>
+
+</div>
 
 {% endblock %}

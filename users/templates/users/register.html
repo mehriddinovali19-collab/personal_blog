@@ -1,25 +1,42 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-Register
+    Register
 {% endblock %}
 
 {% block content %}
 
-<h1>Create Account</h1>
+<div class="auth-container">
 
-<form method="POST">
+    <div class="auth-card">
 
-```
-{% csrf_token %}
+        <h1>Create Account</h1>
 
-{{ form.as_p }}
+        <p class="auth-description">
+            Create your account to start using the blog.
+        </p>
 
-<button type="submit">
-    Register
-</button>
-```
+        <form method="POST">
 
-</form>
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="primary-button">
+                Register
+            </button>
+
+        </form>
+
+        <p class="auth-footer">
+            Already have an account?
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</div>
 
 {% endblock %}

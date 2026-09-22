@@ -1,35 +1,80 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-Blog
+    Blog Posts
 {% endblock %}
 
 {% block content %}
 
-<h1>Blog Posts</h1>
+<div class="page-header">
 
-{% for post in posts %}
+    <h1>Blog Posts</h1>
 
-<div class="post-card">
-
-```
-<h2>
-    <a href="{% url 'post_detail' post.slug %}">
-        {{ post.title }}
-    </a>
-</h2>
-
-<p>
-    {{ post.content|truncatewords:30 }}
-</p>
-```
+    <p>
+        My latest thoughts, experiences and stories.
+    </p>
 
 </div>
 
-{% empty %}
 
-<p>Hozircha postlar mavjud emas.</p>
+<div class="posts-list">
 
-{% endfor %}
+    {% for post in posts %}
+
+    <article class="post-card">
+
+        {% if post.image %}
+
+            <img
+                src="{{ post.image.url }}"
+                alt="{{ post.title }}"
+                class="post-image"
+            >
+
+        {% endif %}
+
+
+        <div class="post-content">
+
+            <h2>
+                <a href="{% url 'post_detail' post.slug %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+
+            <p class="post-description">
+                {{ post.content|truncatewords:45 }}
+            </p>
+
+            <a
+                href="{% url 'post_detail' post.slug %}"
+                class="read-more"
+            >
+                Read more →
+            </a>
+
+        </div>
+
+    </article>
+
+    {% empty %}
+
+    <div class="post-card">
+
+        <div class="post-content">
+
+            <h2>No posts yet</h2>
+
+            <p>
+                Hozircha blogda hech qanday post mavjud emas.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}

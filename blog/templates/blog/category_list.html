@@ -1,35 +1,71 @@
 {% extends "blog/base.html" %}
 
 {% block title %}
-Categories
+    Categories
 {% endblock %}
 
 {% block content %}
 
-<h1>Categories</h1>
+<div class="page-header">
 
-{% for category in categories %}
+    <h1>Categories</h1>
 
-<div class="post-card">
-
-```
-<h2>
-    <a href="{% url 'category_posts' category.slug %}">
-        {{ category.name }}
-    </a>
-</h2>
-
-<p>
-    View posts in {{ category.name }} category.
-</p>
-```
+    <p>
+        Explore posts by category.
+    </p>
 
 </div>
 
-{% empty %}
 
-<p>Hozircha kategoriyalar mavjud emas.</p>
+<div class="categories-list">
 
-{% endfor %}
+    {% for category in categories %}
+
+    <article class="category-card">
+
+        <div class="category-content">
+
+            <h2>
+                <a href="{% url 'category_posts' category.slug %}">
+                    {{ category.name }}
+                </a>
+            </h2>
+
+            <p>
+                Explore all posts in the
+                <strong>{{ category.name }}</strong>
+                category.
+            </p>
+
+            <a
+                href="{% url 'category_posts' category.slug %}"
+                class="read-more"
+            >
+                View Posts →
+            </a>
+
+        </div>
+
+    </article>
+
+    {% empty %}
+
+    <article class="category-card">
+
+        <div class="category-content">
+
+            <h2>No categories yet</h2>
+
+            <p>
+                Hozircha kategoriyalar mavjud emas.
+            </p>
+
+        </div>
+
+    </article>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}
