@@ -12,17 +12,15 @@
 
 <div class="post-card">
 
-```
-<h2>
-    <a href="{% url 'post_detail' post.slug %}">
-        {{ post.title }}
-    </a>
-</h2>
+    <h2>
+        <a href="{% url 'post_detail' post.slug %}">
+            {{ post.title }}
+        </a>
+    </h2>
 
-<p>
-    {{ post.content|truncatewords:30 }}
-</p>
-```
+    <p>
+        {{ post.content|truncatewords:30 }}
+    </p>
 
 </div>
 
