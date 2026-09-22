@@ -96,7 +96,7 @@ def post_update(request, id):
 @login_required
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
-    if post.authotr != request.user:
+    if post.author != request.user:
         return redirect("post_detail", slug=post.slug)
     if request.method == "POST":
         post.delete()
